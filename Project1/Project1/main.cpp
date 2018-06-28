@@ -4,7 +4,10 @@
 #include "Arvore_Decisao.h"
 
 int main(void) {
-	criaArvore("data.txt", "data.txt", 958);
+	Arvore *a;
+	a = criaArvore("data.txt", 958);
+
+	testaArvore("data.txt", 958, a);
 
 	return 0;
 }

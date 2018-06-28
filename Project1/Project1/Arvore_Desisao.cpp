@@ -1,21 +1,169 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 #include <math.h>
+#include <stdlib.h> 
 #include <string.h>
 #include "Arvore_Decisao.h"
 
+Arvore* novaArvore(void) {
+	Arvore *arv = new Arvore();
 
+	arv->x = nullptr;
+	arv->o = nullptr;
+	arv->b = nullptr;
+	strcpy(arv->posicao, "");
 
-void criaArvore(char* pathTeste, char* pathTreino, int tam) {
+	return arv;
+}
+
+Arvore* criaArvore(char* pathTreino, int tam) {
 	std::vector<Opcoes> opt;
 	opt = leArq(pathTreino, tam);
+	
+	Arvore *a = novaArvore();
+	recursiva(opt, a);
 
-	std::vector<TipoAtributo> tipo;
-	tipo = contaPosNeg(opt);
+	return a;
+}
 
-	Arvore *a = new Arvore;
-	recursiva(tipo, a);
+void testaArvore(char* pathTeste, int tam, Arvore *arv) {
+	std::vector<Opcoes> opt;
+	opt = leArq(pathTeste, tam);
 
+	recTestaArvore(opt, arv);
+}
+void recTestaArvore(std::vector<Opcoes> opt, Arvore *arv){
+	if (arv == nullptr)
+		return;
+	for (int i = 0; i < opt.size(); i++) {
+
+		if (strcmp(arv->posicao, "tl") == 0) {
+			if (opt[i].tl == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].tl == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "tm") == 0) {
+			if (opt[i].tm == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].tm == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "tr") == 0) {
+			if (opt[i].tr == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].tr == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "ml") == 0) {
+			if (opt[i].ml == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].ml == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "mm") == 0) {
+			if (opt[i].mm == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].mm == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "mr") == 0) {
+			if (opt[i].mr == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].mr == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "bl") == 0) {
+			if (opt[i].tl == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].tl == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "bm") == 0) {
+			if (opt[i].tm == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].tm == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+		else if (strcmp(arv->posicao, "br") == 0) {
+			if (opt[i].tr == 'x') {
+				Arvore *temp = arv->x;
+				recTestaArvore(opt, temp);
+			}
+			else if (opt[i].tr == 'o') {
+				Arvore *temp = arv->o;
+				recTestaArvore(opt, temp);
+			}
+			else {
+				Arvore *temp = arv->b;
+				recTestaArvore(opt, temp);
+			}
+		}
+	}
 }
 
 std::vector<TipoAtributo> contaPosNeg(std::vector<Opcoes> v) {
@@ -120,10 +268,77 @@ float calculaEntropia(int qtdPos, int qtdNeg) {
 	return (-percPos)*log2f(percPos) + (-percNeg)*log2f(percNeg);
 }
 
-void recursiva(std::vector<TipoAtributo> tipo, Arvore *arv) {
-	int pos = 0;
+std::vector<Opcoes> removeOpcoes(std::vector<Opcoes> opt, char letra, char* posicao) {
+
+	for (int i = 0; i < opt.size(); i++) {
+		
+		if (strcmp(posicao, "tl") == 0) {
+			if (opt[i].tl != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "tm") == 0) {
+			if (opt[i].tm != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "tr") == 0) {
+			if (opt[i].tr != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "ml") == 0) {
+			if (opt[i].ml != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "mm") == 0) {
+			if (opt[i].mm != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "mr") == 0) {
+			if (opt[i].mr != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "bl") == 0) {
+			if (opt[i].bl != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "bm") == 0) {
+			if (opt[i].bm != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+		else if (strcmp(posicao, "br") == 0) {
+			if (opt[i].br != letra) {
+				opt.erase(opt.begin() + i);
+				i--;
+			}
+		}
+	}
+
+	return opt;
+}
+
+void recursiva(std::vector<Opcoes> opt, Arvore *arv) {
+	std::vector<TipoAtributo> tipo;
+	tipo = contaPosNeg(opt);
+	if (opt.size() < 200)
+		int oi = opt.size();
 	float melhor = calculaGanho(tipo[0], tipo[1], tipo[2]);
-	
+	int pos = 0;
+
 	for (int i = 1; i < tipo.size()/3; i++) {
 		float teste = calculaGanho(tipo[i*3], tipo[i*3 + 1], tipo[i*3 + 2]);
 
@@ -132,27 +347,54 @@ void recursiva(std::vector<TipoAtributo> tipo, Arvore *arv) {
 			pos = i;
 		}
 	}
-	printf("Melhor:%f\tPosicao:%d\n", melhor, pos);
+	printf("Melhor:%f\tPosicao:%s\n", melhor, tipo[pos * 3].posicao);
 	if (melhor > 0) {
 		//Coloca maior na arvore
-		strcpy(arv->posicao, tipo[pos].posicao);
-		arv->x = new Arvore;
-		arv->o = new Arvore;
-		arv->b = new Arvore;
-		printf("Melhor:%s\n", arv->posicao);
+		strcpy(arv->posicao, tipo[pos*3].posicao);
+		arv->x = novaArvore();
+		arv->o = novaArvore();
+		arv->b = novaArvore();
 
-		tipo.erase(tipo.begin() + pos);
-		tipo.erase(tipo.begin() + pos);
-		tipo.erase(tipo.begin() + pos);
+		if (opt.size() > 0) {
+			std::vector<Opcoes> copy1, copy2, copy3;
+			std::vector<TipoAtributo> teste;
+			copy1 = opt; copy2 = opt; copy3 = opt;
 
-		if (tipo.size() > 0) {
-			recursiva(tipo, arv->x);
-			recursiva(tipo, arv->o);
-			recursiva(tipo, arv->b);
+			copy1 = removeOpcoes(opt, 'x', arv->posicao);
+			teste = contaPosNeg(copy1);
+			if(calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) >  0)
+				recursiva(copy1, arv->x);
+
+			copy2 = removeOpcoes(opt, 'o', arv->posicao);
+			teste = contaPosNeg(copy2);
+			if (calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) >  0)
+				recursiva(copy2, arv->o);
+
+			copy3 = removeOpcoes(opt, 'b', arv->posicao);
+			teste = contaPosNeg(copy3);
+			if (calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) >  0)
+			recursiva(copy3, arv->b);
 		}
 		else
 			return;
 	}
 	else
 		return;
+}
+
+void show_rec(Arvore* arv)
+{
+	if (arv != nullptr)
+	{
+		std::cout << "<";
+		std::cout << arv->posicao;
+		show_rec(arv->x);
+		show_rec(arv->o);
+		show_rec(arv->b);
+		std::cout << ">";
+	}
+	else
+	{
+		std::cout << ".";
+	}
 }
