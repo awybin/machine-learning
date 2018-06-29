@@ -7,7 +7,8 @@ int main(void) {
 	Arvore *a;
 	a = criaArvore("data.txt", 958);
 
-	testaArvore("data.txt", 958, a);
+	testaArvore("data.txt", "resultado.txt", 958, a);
 
+	comparaResultados("data.txt", "resultado.txt", 958);
 	return 0;
 }

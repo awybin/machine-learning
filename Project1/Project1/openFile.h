@@ -7,3 +7,7 @@ typedef struct opcoes {
 }Opcoes;
 
 std::vector<Opcoes> leArq(char* path, int tam);
+
+void geraArq(char* path, std::vector<int> resultado);
+
+void comparaResultados(char* pathTeste, char* pathResultado, int tam);

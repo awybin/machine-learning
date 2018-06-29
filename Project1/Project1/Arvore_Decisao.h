@@ -15,7 +15,7 @@ typedef struct tipoAtributo {
 
 typedef struct arvore Arvore;
 struct arvore {
-	char posicao[3];
+	char posicao[9];
 	Arvore *x;
 	Arvore *o;
 	Arvore *b;
@@ -24,9 +24,9 @@ struct arvore {
 
 Arvore* criaArvore(char* pathTreino, int tam);
 
-void testaArvore(char* pathTeste, int tam, Arvore *arv);
+void testaArvore(char* pathTeste, char* pathResultado, int tam, Arvore *arv);
 
-void recTestaArvore(std::vector<Opcoes> opt, Arvore *arv);
+int recTestaArvore(std::vector<Opcoes> opt, Arvore *arv, int i);
 
 float calculaEntropia(int qtdPos, int qtdNeg);
 

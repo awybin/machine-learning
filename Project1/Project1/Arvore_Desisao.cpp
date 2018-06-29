@@ -19,151 +19,161 @@ Arvore* novaArvore(void) {
 Arvore* criaArvore(char* pathTreino, int tam) {
 	std::vector<Opcoes> opt;
 	opt = leArq(pathTreino, tam);
-	
+
 	Arvore *a = novaArvore();
 	recursiva(opt, a);
-
+	show_rec(a);
 	return a;
 }
 
-void testaArvore(char* pathTeste, int tam, Arvore *arv) {
+void testaArvore(char* pathTeste, char* pathResultado, int tam, Arvore *arv) {
 	std::vector<Opcoes> opt;
 	opt = leArq(pathTeste, tam);
 
-	recTestaArvore(opt, arv);
-}
-void recTestaArvore(std::vector<Opcoes> opt, Arvore *arv){
-	if (arv == nullptr)
-		return;
-	for (int i = 0; i < opt.size(); i++) {
+	std::vector<int> resultado;
+	resultado.reserve(tam);
 
-		if (strcmp(arv->posicao, "tl") == 0) {
-			if (opt[i].tl == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].tl == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
+	for (int i = 0; i < opt.size(); i++) {
+		if (i == 78)
+			int k = 5;
+		resultado.push_back(recTestaArvore(opt, arv, i));
+	}
+
+	geraArq(pathResultado, resultado);
+}
+int recTestaArvore(std::vector<Opcoes> opt, Arvore *arv, int i) {
+	if (strcmp(arv->posicao, "positive")  == 0)
+		return 1;
+	else if (strcmp(arv->posicao, "negative") == 0)
+		return 0;
+
+	if (strcmp(arv->posicao, "tl") == 0) {
+		if (opt[i].tl == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
 		}
-		else if (strcmp(arv->posicao, "tm") == 0) {
-			if (opt[i].tm == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].tm == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
+		else if (opt[i].tl == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
 		}
-		else if (strcmp(arv->posicao, "tr") == 0) {
-			if (opt[i].tr == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].tr == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
-		}
-		else if (strcmp(arv->posicao, "ml") == 0) {
-			if (opt[i].ml == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].ml == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
-		}
-		else if (strcmp(arv->posicao, "mm") == 0) {
-			if (opt[i].mm == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].mm == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
-		}
-		else if (strcmp(arv->posicao, "mr") == 0) {
-			if (opt[i].mr == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].mr == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
-		}
-		else if (strcmp(arv->posicao, "bl") == 0) {
-			if (opt[i].tl == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].tl == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
-		}
-		else if (strcmp(arv->posicao, "bm") == 0) {
-			if (opt[i].tm == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].tm == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
-		}
-		else if (strcmp(arv->posicao, "br") == 0) {
-			if (opt[i].tr == 'x') {
-				Arvore *temp = arv->x;
-				recTestaArvore(opt, temp);
-			}
-			else if (opt[i].tr == 'o') {
-				Arvore *temp = arv->o;
-				recTestaArvore(opt, temp);
-			}
-			else {
-				Arvore *temp = arv->b;
-				recTestaArvore(opt, temp);
-			}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
 		}
 	}
+	else if (strcmp(arv->posicao, "tm") == 0) {
+		if (opt[i].tm == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].tm == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "tr") == 0) {
+		if (opt[i].tr == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].tr == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "ml") == 0) {
+		if (opt[i].ml == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].ml == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "mm") == 0) {
+		if (opt[i].mm == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].mm == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "mr") == 0) {
+		if (opt[i].mr == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].mr == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "bl") == 0) {
+		if (opt[i].bl == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].bl == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "bm") == 0) {
+		if (opt[i].bm == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].bm == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+	else if (strcmp(arv->posicao, "br") == 0) {
+		if (opt[i].br == 'x') {
+			Arvore *temp = arv->x;
+			return recTestaArvore(opt, temp, i);
+		}
+		else if (opt[i].br == 'o') {
+			Arvore *temp = arv->o;
+			return recTestaArvore(opt, temp, i);
+		}
+		else {
+			Arvore *temp = arv->b;
+			return recTestaArvore(opt, temp, i);
+		}
+	}
+
 }
 
 std::vector<TipoAtributo> contaPosNeg(std::vector<Opcoes> v) {
@@ -182,9 +192,9 @@ std::vector<TipoAtributo> contaPosNeg(std::vector<Opcoes> v) {
 		tipo.push_back(temp);
 	}
 	for (int i = 0; i < 27; i++) {
-		if(i < 3)
+		if (i < 3)
 			strcpy(tipo[i].posicao, "tl");
-		else if(i < 6)
+		else if (i < 6)
 			strcpy(tipo[i].posicao, "tm");
 		else if (i < 9)
 			strcpy(tipo[i].posicao, "tr");
@@ -202,7 +212,7 @@ std::vector<TipoAtributo> contaPosNeg(std::vector<Opcoes> v) {
 			strcpy(tipo[i].posicao, "br");
 	}
 
-	for (int i = 0; i < v.size(); i++){
+	for (int i = 0; i < v.size(); i++) {
 		char atributos[9];
 		atributos[0] = v[i].tl; atributos[1] = v[i].tm; atributos[2] = v[i].tr;
 		atributos[3] = v[i].ml; atributos[4] = v[i].mm; atributos[5] = v[i].mr;
@@ -211,14 +221,14 @@ std::vector<TipoAtributo> contaPosNeg(std::vector<Opcoes> v) {
 		if (strcmp(v[i].classe, "positive") == 0) {
 			for (int j = 0; j < 9; j++) {
 				if (atributos[j] == 'x')
-					tipo[3*j].qtd.positivo++;
+					tipo[3 * j].qtd.positivo++;
 				else if (atributos[j] == 'o')
-					tipo[3*j + 1].qtd.positivo++;
-				else 
-					tipo[3*j + 2].qtd.positivo++;
+					tipo[3 * j + 1].qtd.positivo++;
+				else
+					tipo[3 * j + 2].qtd.positivo++;
 			}
 		}
-		else{
+		else {
 			for (int j = 0; j < 9; j++) {
 				if (atributos[j] == 'x')
 					tipo[3 * j].qtd.negativo++;
@@ -236,7 +246,7 @@ std::vector<TipoAtributo> contaPosNeg(std::vector<Opcoes> v) {
 float calculaGanho(TipoAtributo tipo1, TipoAtributo tipo2, TipoAtributo tipo3) {
 	int opt1Pos, opt1Neg, opt2Pos, opt2Neg, opt3Pos, opt3Neg;
 	int totalPos, totalNeg;
-	float total, entAtual, entOpt1, entOpt2, entOpt3, info, info1, info2, info3;
+	float total, entAtual, entOpt1, entOpt2, entOpt3, info, info1, info2, info3, ganho;
 
 	opt1Pos = tipo1.qtd.positivo; opt1Neg = tipo1.qtd.negativo;
 	opt2Pos = tipo2.qtd.positivo; opt2Neg = tipo2.qtd.negativo;
@@ -252,6 +262,7 @@ float calculaGanho(TipoAtributo tipo1, TipoAtributo tipo2, TipoAtributo tipo3) {
 	info2 = ((opt2Pos + opt2Neg) / total)*calculaEntropia(opt2Pos, opt2Neg);
 	info3 = ((opt3Pos + opt3Neg) / total)*calculaEntropia(opt3Pos, opt3Neg);
 	info = info1 + info2 + info3;
+
 	return entAtual - info;
 }
 
@@ -271,7 +282,8 @@ float calculaEntropia(int qtdPos, int qtdNeg) {
 std::vector<Opcoes> removeOpcoes(std::vector<Opcoes> opt, char letra, char* posicao) {
 
 	for (int i = 0; i < opt.size(); i++) {
-		
+
+
 		if (strcmp(posicao, "tl") == 0) {
 			if (opt[i].tl != letra) {
 				opt.erase(opt.begin() + i);
@@ -339,47 +351,70 @@ void recursiva(std::vector<Opcoes> opt, Arvore *arv) {
 	float melhor = calculaGanho(tipo[0], tipo[1], tipo[2]);
 	int pos = 0;
 
-	for (int i = 1; i < tipo.size()/3; i++) {
-		float teste = calculaGanho(tipo[i*3], tipo[i*3 + 1], tipo[i*3 + 2]);
+	for (int i = 1; i < tipo.size() / 3; i++) {
+		float teste = calculaGanho(tipo[i * 3], tipo[i * 3 + 1], tipo[i * 3 + 2]);
 
 		if (teste > melhor) {
 			melhor = teste;
-			pos = i;
+			pos = i * 3;
 		}
 	}
-	printf("Melhor:%f\tPosicao:%s\n", melhor, tipo[pos * 3].posicao);
+	printf("Melhor:%f\tPosicao:%s\n", melhor, tipo[pos].posicao);
 	if (melhor > 0) {
-		//Coloca maior na arvore
-		strcpy(arv->posicao, tipo[pos*3].posicao);
+		//Coloca melhor na arvore
+
+		strcpy(arv->posicao, tipo[pos].posicao);
 		arv->x = novaArvore();
 		arv->o = novaArvore();
 		arv->b = novaArvore();
 
-		if (opt.size() > 0) {
-			std::vector<Opcoes> copy1, copy2, copy3;
-			std::vector<TipoAtributo> teste;
-			copy1 = opt; copy2 = opt; copy3 = opt;
+		std::vector<Opcoes> copy;
+		std::vector<TipoAtributo> teste;
 
-			copy1 = removeOpcoes(opt, 'x', arv->posicao);
-			teste = contaPosNeg(copy1);
-			if(calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) >  0)
-				recursiva(copy1, arv->x);
-
-			copy2 = removeOpcoes(opt, 'o', arv->posicao);
-			teste = contaPosNeg(copy2);
-			if (calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) >  0)
-				recursiva(copy2, arv->o);
-
-			copy3 = removeOpcoes(opt, 'b', arv->posicao);
-			teste = contaPosNeg(copy3);
-			if (calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) >  0)
-			recursiva(copy3, arv->b);
-		}
+		copy = removeOpcoes(opt, 'x', arv->posicao);
+		teste = contaPosNeg(copy);
+		if (calculaEntropia(teste[pos].qtd.positivo, teste[pos].qtd.negativo) > 0)
+			recursiva(copy, arv->x);
+		else if (teste[pos].qtd.positivo > teste[pos].qtd.negativo)
+			strcpy(arv->x->posicao, "positive");
+		else if (teste[pos].qtd.negativo > teste[pos].qtd.positivo)
+			strcpy(arv->x->posicao, "negative");
 		else
-			return;
+			strcpy(arv->x->posicao, "negative");
+
+		copy = removeOpcoes(opt, 'o', arv->posicao);
+		teste = contaPosNeg(copy);
+		if (calculaEntropia(teste[pos + 1].qtd.positivo, teste[pos + 1].qtd.negativo) > 0)
+			recursiva(copy, arv->o);
+		else if (teste[pos + 1].qtd.positivo > teste[pos + 1].qtd.negativo)
+			strcpy(arv->o->posicao, "positive");
+		else if (teste[pos + 1].qtd.negativo > teste[pos + 1].qtd.positivo)
+			strcpy(arv->o->posicao, "negative");
+		else
+			strcpy(arv->o->posicao, "negative");
+
+		copy = removeOpcoes(opt, 'b', arv->posicao);
+		teste = contaPosNeg(copy);
+		if (calculaEntropia(teste[pos + 2].qtd.positivo, teste[pos + 2].qtd.negativo) > 0)
+			recursiva(copy, arv->b);
+		else if (teste[pos + 2].qtd.positivo > teste[pos + 2].qtd.negativo)
+			strcpy(arv->b->posicao, "positive");
+		else if (teste[pos + 2].qtd.negativo > teste[pos + 2].qtd.positivo)
+			strcpy(arv->b->posicao, "negative");
+		else
+			strcpy(arv->b->posicao, "negative");
 	}
-	else
-		return;
+	else {
+		std::vector<TipoAtributo> teste;
+		printf("Oi\n");
+		teste = contaPosNeg(opt);
+		if (teste[pos].qtd.positivo > teste[pos].qtd.negativo)
+			strcpy(arv->posicao, "positive");
+		else if (teste[pos].qtd.negativo > teste[pos].qtd.positivo)
+			strcpy(arv->posicao, "negative");
+		else
+			printf("TESTEEEEEEEEEEEEEEEEEEEE\n");
+	}
 }
 
 void show_rec(Arvore* arv)
