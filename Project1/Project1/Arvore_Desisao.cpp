@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdlib.h> 
 #include <string.h>
+#include <time.h>
 #include "Arvore_Decisao.h"
 
 Arvore* novaArvore(void) {
@@ -20,9 +21,17 @@ Arvore* criaArvore(char* pathTreino, int tam) {
 	std::vector<Opcoes> opt;
 	opt = leArq(pathTreino, tam);
 
+	clock_t Ticks[2];
+	Ticks[0] = clock();
+
 	Arvore *a = novaArvore();
 	recursiva(opt, a);
-	show_rec(a);
+
+	Ticks[1] = clock();
+	float Tempo = (Ticks[1] - Ticks[0]) / (float)CLOCKS_PER_SEC;
+	printf("\nTempo gasto com treinamento: %.2f s.\n", Tempo);
+
+	//show_rec(a);
 	return a;
 }
 
@@ -33,13 +42,18 @@ void testaArvore(char* pathTeste, char* pathResultado, int tam, Arvore *arv) {
 	std::vector<int> resultado;
 	resultado.reserve(tam);
 
+	clock_t Ticks[2];
+	Ticks[0] = clock();
+
 	for (int i = 0; i < opt.size(); i++) {
-		if (i == 78)
-			int k = 5;
 		resultado.push_back(recTestaArvore(opt, arv, i));
 	}
 
-	geraArq(pathResultado, resultado);
+	Ticks[1] = clock();
+	float Tempo = (Ticks[1] - Ticks[0]) / (float)CLOCKS_PER_SEC;
+	printf("\nTempo gasto com testes: %.2f s.\n", Tempo);
+
+	geraArqRes(pathResultado, resultado);
 }
 int recTestaArvore(std::vector<Opcoes> opt, Arvore *arv, int i) {
 	if (strcmp(arv->posicao, "positive")  == 0)
@@ -359,7 +373,7 @@ void recursiva(std::vector<Opcoes> opt, Arvore *arv) {
 			pos = i * 3;
 		}
 	}
-	printf("Melhor:%f\tPosicao:%s\n", melhor, tipo[pos].posicao);
+	//printf("Melhor:%f\tPosicao:%s\n", melhor, tipo[pos].posicao);
 	if (melhor > 0) {
 		//Coloca melhor na arvore
 
@@ -410,10 +424,8 @@ void recursiva(std::vector<Opcoes> opt, Arvore *arv) {
 		teste = contaPosNeg(opt);
 		if (teste[pos].qtd.positivo > teste[pos].qtd.negativo)
 			strcpy(arv->posicao, "positive");
-		else if (teste[pos].qtd.negativo > teste[pos].qtd.positivo)
-			strcpy(arv->posicao, "negative");
 		else
-			printf("TESTEEEEEEEEEEEEEEEEEEEE\n");
+			strcpy(arv->posicao, "negative");
 	}
 }
 

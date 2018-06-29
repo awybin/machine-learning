@@ -1,3 +1,5 @@
 ﻿  main.cpp
+c:\users\usuario\documents\github\machine-learning\project1\project1\main.cpp(8): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\usuario\documents\github\machine-learning\project1\project1\main.cpp(12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Project1.vcxproj -> C:\Users\Usuario\Documents\GitHub\machine-learning\Project1\Debug\Project1.exe
   Project1.vcxproj -> C:\Users\Usuario\Documents\GitHub\machine-learning\Project1\Debug\Project1.pdb (Partial PDB)
